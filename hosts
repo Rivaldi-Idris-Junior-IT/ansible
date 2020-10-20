@@ -1,0 +1,4 @@
+dev-ans-server ansible_host=172.31.29.216 ansible_connection=ssh
+prod-ans-server ansible_host=172.31.93.76 ansible_connection=ssh
+stag-dev-server ansible_host=172.31.84.215 ansible_connection=ssh
+database-server ansible_host=172.31.93.39 ansible_connection=ssh

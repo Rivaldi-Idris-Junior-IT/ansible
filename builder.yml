@@ -1,0 +1,42 @@
+---
+   - name: "Docker image builder"
+     hosts: dev-ans-server
+     vars: 
+        hub: "aldifarzum"
+        proj: "frontend"
+        dests: /home/ansman/project
+        repo: https://github.com/Rivaldi-Idris-Junior-IT/pos_frontend_vue_docker.git
+     
+     tasks:
+
+       - name: "Check connection to node"
+         ping: 
+
+       - name: "Ensure git installed"
+         yum: 
+           name: git
+           state: present
+         
+       - name: "Installing Python Docker"
+         become: true
+         pip:
+           name: docker
+         
+       - name: "Use Git module to clone"
+         git: 
+           repo: "{{repo}}"
+           dest: "{{dests}}/{{proj}}"
+       
+       - name: "Build image"
+         community.general.docker_image:
+           name: "{{hub}}/{{proj}}"
+           build:
+             path: "{{dests}}/{{proj}}"
+           source: build
+        
+       - name: "Tag and push to docker hub"
+         community.general.docker_image:
+           name: "{{hub}}/{{proj}}"
+           repository: "{{hub}}/{{proj}}:dev"
+           push: yes
+           source: local

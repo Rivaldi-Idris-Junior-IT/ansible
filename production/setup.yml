@@ -1,0 +1,45 @@
+---
+   - name: Setup Server
+     hosts: prod-ans-server
+     become: true
+
+     tasks:
+     - name: Check Connection
+       ping: 
+
+     - name: Install Docker
+       yum: 
+        name: docker
+        state: present
+     
+     - name: Ensure docker is running
+       service: 
+        name: docker 
+        state: started
+        enabled: yes
+     
+     - name: install nginx
+       yum:
+         name: nginx
+         state: present
+     
+     - name: ensure nginx started
+       service:
+         name: nginx
+         state: started
+         enabled: true
+       
+     - name: install git
+       yum:
+         name: git
+         state: present
+         
+      
+     - name: install nodejs
+       command: "curl -sL https://rpm.nodesource.com/setup_lts.x | bash -"
+       ignore_errors: true
+
+     - name: install docker python
+       pip: 
+         name: docker
+         

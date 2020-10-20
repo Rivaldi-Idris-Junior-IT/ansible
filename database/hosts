@@ -1,0 +1,2 @@
+database-server ansible_host=172.31.93.39 ansible_connection=ssh
+
